@@ -1,0 +1,30 @@
+{
+    "udooneo": {
+        "build": {
+            "core": "arduino",
+            "extra_flags": "-D__SAM3X8E__ -DARDUINO_SAM_DUE -DARDUINO_ARCH_SAM",
+            "f_cpu": "84000000L",
+            "mcu": "sam3x8e",
+            "cpu": "cortex-m4",
+            "pid": "0x003e",
+            "usb_product": "Arduino Due",
+            "variant": "udooneo",
+            "vid": "0x2341",
+            "ldscript": "linker_scripts/gcc/ddr.ld"
+        },
+        "frameworks": ["arduino"],
+        "name": "UDOO NEO (iMX6 SoloX)",
+        "platform": "atmelsam",
+        "upload": {
+            "disable_flushing": true,
+            "maximum_ram_size": 32768,
+            "maximum_size": 524288,
+            "protocol": "sam-ba",
+            "require_upload_port" : true,
+            "use_1200bps_touch": false,
+            "wait_for_upload_port": false
+        },
+        "url": "http://www.udoo.org/udoo-neo/",
+        "vendor": "UDOO"
+    }
+}

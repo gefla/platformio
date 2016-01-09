@@ -281,4 +281,13 @@ if "due" in env.subst("$BOARD"):
     )
     libs.append("sam_sam3x8e_gcc_rel")
 
+if "udooneo" in env.subst("$BOARD"):
+    env.VariantDirWrap(
+        join("$BUILD_DIR", "FrameworkMQX"),
+        join("$PLATFORMFW_DIR", "system", "mqx", "release")
+    )
+    env.Append(
+        CPPPATH=[join("$BUILD_DIR", "FrameworkMQX")])
+    
+    
 env.Append(LIBS=libs)
