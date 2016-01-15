@@ -237,8 +237,37 @@ if BOARD_BUILDOPTS.get("core", None) == "teensy":
 
 libs = []
 
+if "udooneo" in env.subst("$BOARD"):
+    env.VariantDirWrap(
+        join("$BUILD_DIR", "FrameworkMQX"),
+        join("$PLATFORMFW_DIR", "system", "mqx", "release")
+    )
+    env.VariantDirWrap(
+        join("$BUILD_DIR", "FrameworkMQXBSP"),
+        join("$PLATFORMFW_DIR", "system", "mqx", "release", "bsp")
+    )
+    env.VariantDirWrap(
+        join("$BUILD_DIR", "FrameworkMQXMCC"),
+        join("$PLATFORMFW_DIR", "system", "mqx", "release", "mcc")
+    )
+    env.VariantDirWrap(
+        join("$BUILD_DIR", "FrameworkMQXPSP"),
+        join("$PLATFORMFW_DIR", "system", "mqx", "release", "psp")
+    )
+    env.Prepend(
+        CPPPATH=[join("$BUILD_DIR", "FrameworkMQX"),
+                 join("$BUILD_DIR", "FrameworkMQXBSP"),
+                 join("$BUILD_DIR", "FrameworkMQXMCC"),
+                 join("$BUILD_DIR", "FrameworkMQXPSP")],
+        LIBPATH=[join("$BUILD_DIR", "FrameworkMQXBSP"),
+                 join("$BUILD_DIR", "FrameworkMQXMCC"),
+                 join("$BUILD_DIR", "FrameworkMQXPSP")])
+    libs.append(join("$BUILD_DIR", "FrameworkMQXBSP", "bsp"))
+    libs.append(join("$BUILD_DIR", "FrameworkMQXBSP", "mcc"))
+    libs.append(join("$BUILD_DIR", "FrameworkMQXBSP", "psp"))
+
 if "variant" in BOARD_BUILDOPTS:
-    env.Append(
+    env.Prepend(
         CPPPATH=[
             join("$BUILD_DIR", "FrameworkArduinoVariant")
         ]
@@ -248,6 +277,7 @@ if "variant" in BOARD_BUILDOPTS:
         join("$PLATFORMFW_DIR", "variants",
              "${BOARD_OPTIONS['build']['variant']}")
     ))
+
 
 envsafe = env.Clone()
 
@@ -280,14 +310,6 @@ if "due" in env.subst("$BOARD"):
         ]
     )
     libs.append("sam_sam3x8e_gcc_rel")
-
-if "udooneo" in env.subst("$BOARD"):
-    env.VariantDirWrap(
-        join("$BUILD_DIR", "FrameworkMQX"),
-        join("$PLATFORMFW_DIR", "system", "mqx", "release")
-    )
-    env.Append(
-        CPPPATH=[join("$BUILD_DIR", "FrameworkMQX")])
     
     
 env.Append(LIBS=libs)
