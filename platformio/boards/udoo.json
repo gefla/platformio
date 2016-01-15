@@ -10,7 +10,7 @@
             "usb_product": "Arduino Due",
             "variant": "udooneo",
             "vid": "0x2341",
-            "ldscript": "linker_scripts/gcc/ddr.ld"
+            "ldscript": "ddr.ld"
         },
         "frameworks": ["arduino"],
         "name": "UDOO NEO (iMX6 SoloX)",
